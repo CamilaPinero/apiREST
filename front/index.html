@@ -33,14 +33,14 @@
 					</table>
 					<button
 						type="button"
-						class="btn btn-primary"
+						class="btn btn-primary nuevo-usuario"
 						data-bs-toggle="modal"
-						data-bs-target="#exampleModal"
+						data-bs-target="#usuariosModal"
 					>
 						Nuevo usuario
 					</button>
 					<!-- modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1">
+					<div class="modal fade" id="usuariosModal" tabindex="-1">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -54,31 +54,31 @@
 										aria-label="Close"
 									></button>
 								</div>
-								<form id="user-form">
+								<form id="usuarios-form">
 									<div class="modal-body">
 										<div class="mb-3">
 											<label
-												for="exampleInputEmail1"
+												for="usuario"
 												class="form-label"
 												>Usuario</label
 											>
 											<input
 												type="text"
 												class="form-control"
-												id="user-input"
-												aria-describedby="user-input"
+												id="usuario"
+												aria-describedby="usuario"
 											/>
 										</div>
 										<div class="mb-3">
 											<label
-												for="exampleInputPassword1"
+												for="contraseña"
 												class="form-label"
 												>Contraseña</label
 											>
 											<input
 												type="password"
 												class="form-control"
-												id="exampleInputPassword1"
+												id="contraseña"
 											/>
 										</div>
 									</div>
@@ -93,6 +93,8 @@
 										<button
 											type="submit"
 											class="btn btn-primary"
+											form="usuarios-form"
+											data-bs-dismiss="modal"
 										>
 											Submit
 										</button>
