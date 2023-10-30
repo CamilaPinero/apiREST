@@ -244,7 +244,7 @@ window.addEventListener("load", async (event) => {
 						plazoFijo: e.target.elements.plazoFijo.value,
 						id_usuario: e.target.elements.idUsuario.value,
 					};
-					putUsuario(btn.id.slice(13), nuevoUsuario);
+					putUsuario(btn.id.slice(13), nuevaCtaBancaria);
 					location.reload();
 				});
 		});
