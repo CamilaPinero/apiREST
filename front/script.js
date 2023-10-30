@@ -140,7 +140,7 @@ window.addEventListener("load", async (event) => {
 	const tBodyUsuarios = document.querySelector("#tBodyUsuarios");
 	const tHeadCtaBancaria = document.querySelector("#tHeadCtaBancaria");
 	const tBodyCtaBancaria = document.querySelector("#tBodyCtaBancaria");
-	const tHeadCtaUsuario = document.querySelector("#tHeadyCtaUsuario");
+	const tHeadCtaUsuario = document.querySelector("#tHeadCtaUsuario");
 	const tBodyCtaUsuario = document.querySelector("#tBodyCtaUsuario");
 
 	await mostrarTabla(
