@@ -117,6 +117,140 @@
 						<thead id="tHeadCtaBancaria"></thead>
 						<tbody id="tBodyCtaBancaria"></tbody>
 					</table>
+					<button
+						type="button"
+						class="btn btn-primary nueva-ctaBancaria"
+						data-bs-toggle="modal"
+						data-bs-target="#cuentaBancariaModal"
+					>
+						Nueva cuenta bancaria
+					</button>
+					<!-- modal -->
+					<div
+						class="modal fade"
+						id="cuentaBancariaModal"
+						tabindex="-1"
+					>
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">
+										Agregar nueva cuenta bancaria
+									</h5>
+									<button
+										type="button"
+										class="btn-close"
+										data-bs-dismiss="modal"
+										aria-label="Close"
+									></button>
+								</div>
+								<form id="cuentaBancaria-form">
+									<div class="modal-body">
+										<div class="mb-3">
+											<label
+												for="cuenta"
+												class="form-label"
+												>Cuenta</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="cuenta"
+												aria-describedby="cuenta"
+											/>
+										</div>
+										<div class="mb-3">
+											<label for="cbu" class="form-label"
+												>CBU</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="cbu"
+											/>
+										</div>
+										<div class="mb-3">
+											<label
+												for="numTarjeta"
+												class="form-label"
+												>Num Tarjeta</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="numTarjeta"
+											/>
+										</div>
+										<div class="mb-3">
+											<label
+												for="pesos"
+												class="form-label"
+												>Pesos</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="pesos"
+											/>
+										</div>
+										<div class="mb-3">
+											<label
+												for="dolares"
+												class="form-label"
+												>Dolares</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="dolares"
+											/>
+										</div>
+										<div class="mb-3">
+											<label
+												for="plazoFijo"
+												class="form-label"
+												>Plazo Fijo</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="plazoFijo"
+											/>
+										</div>
+										<div class="mb-3">
+											<label
+												for="idUsuario"
+												class="form-label"
+												>Id Usuario</label
+											>
+											<input
+												type="number"
+												class="form-control"
+												id="idUsuario"
+											/>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button
+											type="button"
+											class="btn btn-secondary"
+											data-bs-dismiss="modal"
+										>
+											Close
+										</button>
+										<button
+											type="submit"
+											class="btn btn-primary"
+											form="cuentaBancaria-form"
+											data-bs-dismiss="modal"
+										>
+											Submit
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

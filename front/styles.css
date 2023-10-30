@@ -1,5 +1,6 @@
 svg {
 	width: 20px;
+	pointer-events: none;
 }
 
 .herramientas {

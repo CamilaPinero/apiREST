@@ -7,7 +7,7 @@ async function apiConnection(url) {
 		console.error(error);
 	}
 }
-
+//usuarios
 async function postUsuario(usuario) {
 	try {
 		const response = await fetch("http://localhost:3000/usuarios", {
@@ -28,8 +28,6 @@ async function deleteUsuario(id) {
 		const response = await fetch(`http://localhost:3000/usuarios/${id}`, {
 			method: "DELETE",
 		});
-		console.log("Ok: ", response);
-		//window.location.reload();
 	} catch (error) {
 		console.log(error);
 	}
@@ -44,14 +42,42 @@ async function putUsuario(id, usuario) {
 			},
 			body: JSON.stringify(usuario),
 		});
-		const result = await response.json();
-		console.log("oks", result);
 	} catch (error) {
 		console.log(error);
 	}
 }
 
-function armarTabla(datos, tablaHead, tablaBody) {
+//cuenta bancaria
+
+async function postCtaBancaria(ctaBancaria) {
+	try {
+		const response = await fetch("http://localhost:3000/ctaBancaria", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(ctaBancaria),
+		});
+		const result = await response.json();
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+async function deleteCtaBancaria(id) {
+	try {
+		const response = await fetch(
+			`http://localhost:3000/ctaBancaria/${id}`,
+			{
+				method: "DELETE",
+			}
+		);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+function armarTabla(datos, tablaHead, tablaBody, nombreTabla) {
 	const tr = document.createElement("tr");
 
 	Object.keys(datos[0]).forEach((key) => {
@@ -79,7 +105,7 @@ function armarTabla(datos, tablaHead, tablaBody) {
 
 		if (tablaBody) {
 			const opciones = document.createElement("th");
-			opciones.innerHTML = `<button type="button" class="btn btn-sm delete" id="delete-usuario-${d.id}">
+			opciones.innerHTML = `<button class="btn btn-sm delete" id="delete-${d.id}">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"  >
@@ -89,8 +115,8 @@ function armarTabla(datos, tablaHead, tablaBody) {
 					/>
 				</svg>
 			</button>
-			<button type="button" class="btn btn-sm edit" id="edit-usuario-${d.id}" data-bs-toggle="modal"
-			data-bs-target="#usuariosModal">
+			<button class="btn btn-sm edit" id="edit-${d.id}" data-bs-toggle="modal"
+			data-bs-target="#${nombreTabla}Modal"> 
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 				<title>pencil-outline</title>
 				<path
@@ -104,9 +130,9 @@ function armarTabla(datos, tablaHead, tablaBody) {
 	});
 }
 
-async function mostrarTabla(url, tablaHead, tablaBody) {
+async function mostrarTabla(url, tablaHead, tablaBody, nombreTabla) {
 	const response = await apiConnection(url);
-	armarTabla(response, tablaHead, tablaBody);
+	armarTabla(response, tablaHead, tablaBody, nombreTabla);
 }
 
 window.addEventListener("load", async (event) => {
@@ -120,19 +146,23 @@ window.addEventListener("load", async (event) => {
 	await mostrarTabla(
 		"http://localhost:3000/usuarios",
 		tHeadUsuarios,
-		tBodyUsuarios
+		tBodyUsuarios,
+		"usuarios"
 	);
 	await mostrarTabla(
 		"http://localhost:3000/CtaBancaria",
 		tHeadCtaBancaria,
-		tBodyCtaBancaria
+		tBodyCtaBancaria,
+		"cuentaBancaria"
 	);
 	await mostrarTabla(
 		"http://localhost:3000/CtaUsuario",
 		tHeadCtaUsuario,
-		tBodyCtaUsuario
+		tBodyCtaUsuario,
+		"cuentaUsuario"
 	);
 
+	//Tabla usuarios
 	document.querySelector(".nuevo-usuario").addEventListener("click", (e) => {
 		document
 			.querySelector("#usuarios-form")
@@ -147,30 +177,76 @@ window.addEventListener("load", async (event) => {
 				location.reload();
 			});
 	});
-
 	document.querySelectorAll(".delete").forEach((btn) => {
 		btn.addEventListener("click", async (e) => {
-			//problema con la svg
-
-			await deleteUsuario(e.target.id.slice(15));
+			await deleteUsuario(e.target.id.slice(7));
 			location.reload();
 		});
 	});
-});
-document.querySelectorAll(".edit").forEach((btn) => {
-	btn.addEventListener("click", (e) => {
-		document
-			.querySelector("#usuarios-form")
-			.addEventListener("submit", async (e) => {
-				e.preventDefault();
-				const nuevoUsuario = {
-					user: e.target.elements.usuario.value,
-					password: e.target.elements.contraseña.value,
-				};
+	document.querySelectorAll(".edit").forEach((btn) => {
+		btn.addEventListener("click", (e) => {
+			document
+				.querySelector("#usuarios-form")
+				.addEventListener("submit", (e) => {
+					e.preventDefault();
+					const nuevoUsuario = {
+						user: e.target.elements.usuario.value,
+						password: e.target.elements.contraseña.value,
+					};
+					putUsuario(btn.id.slice(5), nuevoUsuario);
+					location.reload();
+				});
+		});
+	});
 
-				await putUsuario(e.target.id.slice(13), nuevoUsuario); //algo aca adentro no anda
-				console.log(nuevoUsuario);
-				location.reload();
-			});
+	//Tabla cuenta bancaria
+	document
+		.querySelector(".nueva-ctaBancaria")
+		.addEventListener("click", (e) => {
+			document
+				.querySelector("#cuentaBancaria-form")
+				.addEventListener("submit", async (e) => {
+					e.preventDefault();
+					const nuevaCtaBancaria = {
+						cuenta: e.target.elements.cuenta.value,
+						cbu: e.target.elements.cbu.value,
+						numTarjeta: e.target.elements.numTarjeta.value,
+						pesos: e.target.elements.pesos.value,
+						dolares: e.target.elements.dolares.value,
+						plazoFijo: e.target.elements.plazoFijo.value,
+						id_usuario: e.target.elements.idUsuario.value,
+					};
+
+					await postCtaBancaria(nuevaCtaBancaria);
+					location.reload();
+				});
+		});
+
+	document.querySelectorAll(".delete").forEach((btn) => {
+		btn.addEventListener("click", async (e) => {
+			await deleteCtaBancaria(e.target.id.slice(7));
+			location.reload();
+		});
+	});
+
+	document.querySelectorAll(".edit").forEach((btn) => {
+		btn.addEventListener("click", (e) => {
+			document
+				.querySelector("#cuentaBancaria-form")
+				.addEventListener("submit", (e) => {
+					e.preventDefault();
+					const nuevaCtaBancaria = {
+						cuenta: e.target.elements.cuenta.value,
+						cbu: e.target.elements.cbu.value,
+						numTarjeta: e.target.elements.numTarjeta.value,
+						pesos: e.target.elements.pesos.value,
+						dolares: e.target.elements.dolares.value,
+						plazoFijo: e.target.elements.plazoFijo.value,
+						id_usuario: e.target.elements.idUsuario.value,
+					};
+					putUsuario(btn.id.slice(13), nuevoUsuario);
+					location.reload();
+				});
+		});
 	});
 });
