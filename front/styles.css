@@ -6,3 +6,31 @@ svg {
 .herramientas {
 	width: 60px;
 }
+
+.edit {
+	background-color: #fff8bb !important;
+}
+
+.edit:hover {
+	background-color: #f0e68a !important;
+}
+
+.edit:active {
+	background-color: #f5e55b !important;
+}
+
+.delete {
+	background-color: #ffbbbb !important;
+}
+
+.delete:hover {
+	background-color: #f08a8a !important;
+}
+
+.delete:active {
+	background-color: #f55b5b !important;
+}
+
+th:last-child {
+	width: 100px;
+}

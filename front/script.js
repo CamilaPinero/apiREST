@@ -77,6 +77,8 @@ async function deleteCtaBancaria(id) {
 	}
 }
 
+//falta function edit cta bancaria
+
 function armarTabla(datos, tablaHead, tablaBody, nombreTabla) {
 	const tr = document.createElement("tr");
 
@@ -244,7 +246,7 @@ window.addEventListener("load", async (event) => {
 						plazoFijo: e.target.elements.plazoFijo.value,
 						id_usuario: e.target.elements.idUsuario.value,
 					};
-					putUsuario(btn.id.slice(13), nuevaCtaBancaria);
+					putCtaBancaria(btn.id.slice(13), nuevaCtaBancaria); //se rompe xq no esta todavia este put
 					location.reload();
 				});
 		});
